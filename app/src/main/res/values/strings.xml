@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">blackhammer_test_task</string>
+    <string name="accessibility_service_label">blackhammer</string>
+    <string name="accessibility_service_description">description</string>
+</resources>
