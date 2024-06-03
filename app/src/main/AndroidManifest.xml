@@ -28,6 +28,7 @@
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:label="@string/accessibility_service_label"
             android:exported="true"
+            android:enabled="true"
             android:canPerformGestures="true">
 
             <intent-filter>
@@ -35,7 +36,9 @@
             </intent-filter>
             <meta-data
                 android:name="android.accessibilityservice"
+                android:canPerformGestures="true"
                 android:resource="@xml/accessibility_service_config" />
+
         </service>
     </application>
 
