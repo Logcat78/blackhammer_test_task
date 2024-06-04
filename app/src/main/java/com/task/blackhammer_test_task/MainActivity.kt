@@ -21,60 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.task.blackhammer_test_task.ui.theme.Blackhammer_test_taskTheme
+import com.task.blackhammer_test_task.ui.theme.screens.MainScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Surface(
-                modifier = Modifier,
-                color = MaterialTheme.colorScheme.background
-            ) {
-                Column {
-                    Button(modifier  = Modifier
-                        ,onClick  = {
-                            val gesture = GestureAccessibilityService()
-                            gesture.swipe()
-                            Log.d("gp","swipe")
-
-                        }
-                    ){
-                        Text(text = "свайпать")
-                    }
-
-
-
-
-                    Button(modifier  = Modifier
-                        .fillMaxHeight()
-                        .padding(105.dp),onClick  = {
-                        startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-
-                    }
-                    ){
-                        Text(text = "Запросить разрешение")
-                    }
-
-
-                }
-
-            }
+            MainScreen()
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Blackhammer_test_taskTheme {
-        Greeting("Android")
     }
 }

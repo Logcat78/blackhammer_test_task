@@ -15,17 +15,22 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class GestureAccessibilityService: AccessibilityService(){
+
+    companion object{
+        var swipeState: Boolean = false
+    }
     override fun onAccessibilityEvent(p0: AccessibilityEvent?) {
         Log.d("gp", "Event")
     }
 
     override fun onServiceConnected() {
         super.onServiceConnected()
-        Log.d("gp", "Event2323233")
         CoroutineScope(Dispatchers.Main).launch {
-            delay(1000)
             while (true){
-                swipe()
+                delay(3000)
+                if (swipeState){
+                    swipe()
+                }
             }
         }
 
@@ -35,7 +40,9 @@ class GestureAccessibilityService: AccessibilityService(){
         super.onMotionEvent(event)
         Log.d("gp",  "MotionEvent")
     }
-    fun swipe(){
+    fun swipe(
+
+    ){
         val path: Path = Path()
         path.moveTo(500f, 500f)
         path.lineTo(100f, 500f)
