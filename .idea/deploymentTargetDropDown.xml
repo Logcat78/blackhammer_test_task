@@ -18,6 +18,25 @@
           <timeTargetWasSelectedWithDropDown value="2024-06-04T12:33:59.366820900Z" />
         </State>
       </entry>
+      <entry key="testGetGestureParametersFromText()">
+        <State />
+      </entry>
+      <entry key="useAppContext()">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\Стас\.android\avd\13_Android.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-06-05T15:13:02.882155Z" />
+        </State>
+      </entry>
     </value>
   </component>
 </project>

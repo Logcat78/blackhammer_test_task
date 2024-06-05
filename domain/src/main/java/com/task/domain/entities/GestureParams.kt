@@ -5,4 +5,5 @@ data class GestureParams(
     val moveToY: Float,
     val lineToX: Float,
     val lineToY: Float,
+    val duration: Int,
 )

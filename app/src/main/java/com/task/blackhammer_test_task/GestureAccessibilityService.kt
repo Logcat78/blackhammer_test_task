@@ -25,6 +25,7 @@ class GestureAccessibilityService: AccessibilityService(){
 
     override fun onServiceConnected() {
         super.onServiceConnected()
+
         CoroutineScope(Dispatchers.Main).launch {
             while (true){
                 delay(3000)

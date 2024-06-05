@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    
 }
 
 android {
@@ -32,8 +33,11 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    implementation(libs.okhttp)
+
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
+
     implementation libs.material
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
