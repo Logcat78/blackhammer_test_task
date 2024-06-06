@@ -3,6 +3,7 @@ package com.task.data.api
 import android.util.Log
 import com.task.domain.entities.GestureParams
 import com.task.domain.repositories.GestureRepository
+import kotlinx.coroutines.delay
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -11,13 +12,15 @@ import okhttp3.WebSocketListener
 
 
 class GestureWebSocket: GestureRepository{
+    companion object{
+        var gestureParams: GestureParams = GestureParams(1f,2f,2f,3f, 1)
+    }
 
-    override suspend fun getGestureParams(): GestureParams {
-        var gestureParams: GestureParams? = null
+    override suspend fun getGestureParams() {
         val client = OkHttpClient()
         val request = Request
             .Builder()
-            .url("")
+            .url("ws://a712-193-32-202-108.ngrok-free.app/ws")
             .build()
 
         val webSocket: WebSocket = client.newWebSocket(request, object : WebSocketListener(){
@@ -37,12 +40,13 @@ class GestureWebSocket: GestureRepository{
             }
 
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-
+                Log.d("gp", response?.message.toString())
             }
 
         })
         client.dispatcher.executorService.shutdown()
-        return gestureParams!!
+        webSocket.send("getGestureParams")
+        delay(3000)
     }
 
     override fun getGestureParamsFromText(text: String): GestureParams?  {
@@ -60,6 +64,4 @@ class GestureWebSocket: GestureRepository{
         }else
             return null
     }
-
-
 }

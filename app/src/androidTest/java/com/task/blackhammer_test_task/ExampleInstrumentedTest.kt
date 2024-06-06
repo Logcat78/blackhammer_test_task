@@ -2,6 +2,11 @@ package com.task.blackhammer_test_task
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.task.data.api.GestureWebSocket
+import com.task.domain.usecases.GetGestureParamsUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,5 +25,13 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.task.blackhammer_test_task", appContext.packageName)
+    }
+
+    @Test
+    fun testConnection() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val getGestureParamsUseCase = GetGestureParamsUseCase(GestureWebSocket())
+            getGestureParamsUseCase.invoke()
+        }
     }
 }

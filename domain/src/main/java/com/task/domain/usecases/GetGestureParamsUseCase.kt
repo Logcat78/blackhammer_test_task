@@ -1,5 +1,6 @@
 package com.task.domain.usecases
 
+import com.task.domain.entities.GestureParams
 import com.task.domain.repositories.GestureRepository
 
 class GetGestureParamsUseCase(

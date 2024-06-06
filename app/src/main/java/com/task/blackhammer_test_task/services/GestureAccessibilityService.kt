@@ -1,14 +1,13 @@
-package com.task.blackhammer_test_task
+package com.task.blackhammer_test_task.services
 
-import android.accessibilityservice.AccessibilityGestureEvent
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.GestureDescription
 import android.graphics.Path
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
 import android.view.accessibility.AccessibilityEvent
+import com.task.data.api.GestureWebSocket
+import com.task.domain.entities.GestureParams
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -30,7 +29,7 @@ class GestureAccessibilityService: AccessibilityService(){
             while (true){
                 delay(3000)
                 if (swipeState){
-                    swipe()
+                    swipe(GestureWebSocket.gestureParams!!)
                 }
             }
         }
@@ -42,17 +41,17 @@ class GestureAccessibilityService: AccessibilityService(){
         Log.d("gp",  "MotionEvent")
     }
     fun swipe(
-
+        gestureParams: GestureParams
     ){
         val path: Path = Path()
-        path.moveTo(500f, 500f)
-        path.lineTo(100f, 500f)
+        path.moveTo(gestureParams.moveToX, gestureParams.moveToY)
+        path.lineTo(gestureParams.lineToX, gestureParams.lineToY)
 
         val gesture = GestureDescription.Builder()
             .addStroke(GestureDescription.StrokeDescription(
                 path,
                 0,
-                500,
+                gestureParams.duration.toLong(),
             ))
 
 

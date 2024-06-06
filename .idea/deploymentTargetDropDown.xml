@@ -18,6 +18,9 @@
           <timeTargetWasSelectedWithDropDown value="2024-06-04T12:33:59.366820900Z" />
         </State>
       </entry>
+      <entry key="testConnection()">
+        <State />
+      </entry>
       <entry key="testGetGestureParametersFromText()">
         <State />
       </entry>
