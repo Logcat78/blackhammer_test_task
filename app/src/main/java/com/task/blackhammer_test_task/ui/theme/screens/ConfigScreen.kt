@@ -21,9 +21,16 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
+
+
+fun getIpText(): String{
+    return ipText1
+}
+var ipText1: String = ""
 @Composable
 fun ConfigScreen(onNavigate: () -> Unit){
     val ipTextState = remember { mutableStateOf("")  }
+    ipText1 = ipTextState.value
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -40,7 +47,7 @@ fun ConfigScreen(onNavigate: () -> Unit){
             ),
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = {}),
-            label = {Text("ip адрес и порт ")},
+            label = {Text("ip адрес и порт")},
             placeholder = {},
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -49,7 +56,9 @@ fun ConfigScreen(onNavigate: () -> Unit){
         )
 
         Button(
-            onClick = {},
+            onClick = {
+                ipText1  =  ipTextState.value
+            },
             modifier  = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)

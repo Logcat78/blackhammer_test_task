@@ -6,6 +6,7 @@ import android.graphics.Path
 import android.util.Log
 import android.view.MotionEvent
 import android.view.accessibility.AccessibilityEvent
+import android.widget.Toast
 import com.task.data.api.GestureWebSocket
 import com.task.domain.entities.GestureParams
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +20,7 @@ class GestureAccessibilityService: AccessibilityService(){
         var swipeState: Boolean = false
     }
     override fun onAccessibilityEvent(p0: AccessibilityEvent?) {
-        Log.d("gp", "Event")
+        Log.d("Gesture", "Event")
     }
 
     override fun onServiceConnected() {
@@ -38,7 +39,7 @@ class GestureAccessibilityService: AccessibilityService(){
 
     override fun onMotionEvent(event: MotionEvent) {
         super.onMotionEvent(event)
-        Log.d("gp",  "MotionEvent")
+        Log.d("Gesture",  "MotionEvent")
     }
     fun swipe(
         gestureParams: GestureParams
@@ -57,18 +58,18 @@ class GestureAccessibilityService: AccessibilityService(){
 
        dispatchGesture(gesture.build(), object : GestureResultCallback() {
             override fun onCompleted(gestureDescription: GestureDescription?) {
-                Log.d("gp","onCompleted")
+                Log.d("Gesture","onCompleted")
             }
 
             override fun onCancelled(gestureDescription: GestureDescription?) {
-                Log.d("gp","onCancelled")
+                Log.d("Gesture","onCancelled")
             }
         }, null)
 
     }
 
     override fun onInterrupt() {
-        Log.d("gp","onInterrupt")
+        Log.d("Gesture","onInterrupt")
     }
 
 }

@@ -3,6 +3,8 @@ package com.task.blackhammer_test_task.ui.theme.screens
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,11 +13,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
 import com.task.blackhammer_test_task.services.GestureAccessibilityService
+import com.task.blackhammer_test_task.viewmodel.GestureViewModel
 import com.task.data.api.GestureWebSocket
 import com.task.domain.usecases.GetGestureParamsUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -23,9 +30,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainScreen(onNavigate: () -> Unit){
+fun MainScreen(
+    viewModel: GestureViewModel,
+    onNavigate: () -> Unit,
+
+){
     var buttonState = false
+    val buttonText = remember { mutableStateOf("Начать") }
     val context = LocalContext.current
+    viewModel.feelLiveData()
+    val launch = viewModel.launchLiveData.observeAsState().value
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -33,21 +47,27 @@ fun MainScreen(onNavigate: () -> Unit){
     ) {
         Button(
             onClick = {
-                val job = CoroutineScope(Dispatchers.IO).launch{
-                    val getGestureParamsUseCase = GetGestureParamsUseCase(GestureWebSocket())
-                    getGestureParamsUseCase.invoke()
-                }
-                if(!buttonState){
-                    val intentChromeIntent  = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"))
-                    context.startActivity(intentChromeIntent)
-                    buttonState = true
-                    GestureAccessibilityService.swipeState = true
-                    job.start()
+                if(launch!!.checkUnableAccessibilityService(context)){
+                    if(getIpText().isNotEmpty()){
+                        val job = launch.getParams(getIpText())
+                        if(!buttonState){
+                            launch.openChrome(context)
+                            buttonText.value  = "Пауза"
+                            buttonState = true
+                            GestureAccessibilityService.swipeState = true
+                            job.start()
 
+                        }else{
+                            buttonState = false
+                            buttonText.value  = "Начать"
+                            GestureAccessibilityService.swipeState = false
+                            job.cancel()
+                        }
+                    }else{
+                        Toast.makeText(context, "Вы не ввели ip адрес и порт", Toast.LENGTH_SHORT).show()
+                    }
                 }else{
-                    buttonState = false
-                    GestureAccessibilityService.swipeState = false
-                    job.cancel()
+                    Toast.makeText(context, "Вы не включили сервис специальных возможностей", Toast.LENGTH_SHORT).show()
                 }
 
             },
@@ -55,7 +75,7 @@ fun MainScreen(onNavigate: () -> Unit){
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Text(text = "Начать")
+            Text(text = buttonText.value)
         }
 
         Button(
@@ -76,7 +96,7 @@ fun MainScreen(onNavigate: () -> Unit){
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Text(text = "Запросить разрешение")
+            Text(text = "Включить сервис специальных возможностей")
         }
     }
 }

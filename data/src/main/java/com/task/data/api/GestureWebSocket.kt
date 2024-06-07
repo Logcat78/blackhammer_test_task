@@ -16,37 +16,41 @@ class GestureWebSocket: GestureRepository{
         var gestureParams: GestureParams = GestureParams(1f,2f,2f,3f, 1)
     }
 
-    override suspend fun getGestureParams() {
-        val client = OkHttpClient()
-        val request = Request
-            .Builder()
-            .url("ws://a712-193-32-202-108.ngrok-free.app/ws")
-            .build()
+    override suspend fun getGestureParams(url: String) {
+        try {
+            val client = OkHttpClient()
+            val request = Request
+                .Builder()
+                .url(url)
+                .build()
 
-        val webSocket: WebSocket = client.newWebSocket(request, object : WebSocketListener(){
-            override fun onOpen(webSocket: WebSocket, response: Response) {
+            val webSocket: WebSocket = client.newWebSocket(request, object : WebSocketListener(){
+                override fun onOpen(webSocket: WebSocket, response: Response) {
+                    Log.d("Gesture",  "onOpen")
+                }
 
-            }
+                override fun onMessage(webSocket: WebSocket, text: String) {
+                    gestureParams = getGestureParamsFromText(text)!!
+                }
 
-            override fun onMessage(webSocket: WebSocket, text: String) {
-                gestureParams = getGestureParamsFromText(text)!!
-            }
+                override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+                    Log.d("Gesture", "onClosing")
+                }
+                override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
+                    Log.d("Gesture",  "onClosed")
+                }
 
-            override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
+                override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+                    Log.d("Gesture",  "onFailure")
+                }
 
-            }
-            override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-
-            }
-
-            override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-                Log.d("gp", response?.message.toString())
-            }
-
-        })
-        client.dispatcher.executorService.shutdown()
-        webSocket.send("getGestureParams")
-        delay(3000)
+            })
+            client.dispatcher.executorService.shutdown()
+            webSocket.send("getGestureParams")
+            delay(3000)
+        }catch (e: Exception){
+            Log.d("Gesture",  "Exception")
+        }
     }
 
     override fun getGestureParamsFromText(text: String): GestureParams?  {
