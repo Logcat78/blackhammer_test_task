@@ -47,7 +47,7 @@ fun MainScreen(
     ) {
         Button(
             onClick = {
-                if(launch!!.checkUnableAccessibilityService(context)){
+                if(launch!!.checkEnableAccessibilityService(context)){
                     if(getIpText().isNotEmpty()){
                         val job = launch.getParams(getIpText())
                         if(!buttonState){

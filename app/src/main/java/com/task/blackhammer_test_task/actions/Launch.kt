@@ -27,7 +27,7 @@ class Launch @Inject constructor(
         return job
     }
 
-    fun checkUnableAccessibilityService(context: Context): Boolean {
+    fun checkEnableAccessibilityService(context: Context): Boolean {
         val accessibilityManager =
             context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
         return accessibilityManager.isEnabled
