@@ -13,7 +13,7 @@ import okhttp3.WebSocketListener
 
 class GestureWebSocket: GestureRepository{
     companion object{
-        var gestureParams: GestureParams = GestureParams(1f,2f,2f,3f, 1)
+        var gestureParams: GestureParams = GestureParams(1f,2f,2f,3f, 5)
     }
 
     override suspend fun getGestureParams(url: String) {

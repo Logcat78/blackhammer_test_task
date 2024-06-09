@@ -38,7 +38,7 @@ fun MainScreen(
     var buttonState = false
     val buttonText = remember { mutableStateOf("Начать") }
     val context = LocalContext.current
-    viewModel.feelLiveData()
+    viewModel.fillViewModel()
     val launch = viewModel.launchLiveData.observeAsState().value
     Column(
         modifier = Modifier
@@ -98,5 +98,18 @@ fun MainScreen(
         ) {
             Text(text = "Включить сервис специальных возможностей")
         }
+
+        Button(
+            onClick = {
+                launch!!.enableSettingsAccessibility(context)
+            },
+            modifier  = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(text = "Включить настройки с ограниченным доступом (если не включается сервис специальных возможностей)")
+        }
+
+
     }
 }

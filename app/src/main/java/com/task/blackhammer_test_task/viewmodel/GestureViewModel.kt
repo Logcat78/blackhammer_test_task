@@ -14,7 +14,7 @@ class GestureViewModel @Inject constructor(
     val launchLiveData = MutableLiveData<Launch>()
     val getGestureParamsUseCaseLiveData = MutableLiveData<GetGestureParamsUseCase>()
 
-    fun feelLiveData(){
+    fun fillViewModel(){
         launchLiveData.value = launch
         getGestureParamsUseCaseLiveData.value  = getGestureParamsUseCase
     }

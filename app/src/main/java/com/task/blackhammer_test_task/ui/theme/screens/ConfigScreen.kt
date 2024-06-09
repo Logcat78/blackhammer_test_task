@@ -1,5 +1,6 @@
 package com.task.blackhammer_test_task.ui.theme.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -31,6 +33,7 @@ var ipText1: String = ""
 fun ConfigScreen(onNavigate: () -> Unit){
     val ipTextState = remember { mutableStateOf("")  }
     ipText1 = ipTextState.value
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -58,6 +61,7 @@ fun ConfigScreen(onNavigate: () -> Unit){
         Button(
             onClick = {
                 ipText1  =  ipTextState.value
+                Toast.makeText(context,  "Адрес и порт сохранены", Toast.LENGTH_LONG).show()
             },
             modifier  = Modifier
                 .fillMaxWidth()
