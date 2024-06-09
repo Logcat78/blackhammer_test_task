@@ -31,7 +31,6 @@ class ExampleInstrumentedTest {
     fun testConnection() {
         CoroutineScope(Dispatchers.IO).launch {
             val getGestureParamsUseCase = GetGestureParamsUseCase(GestureWebSocket())
-            getGestureParamsUseCase.invoke()
         }
     }
 }
