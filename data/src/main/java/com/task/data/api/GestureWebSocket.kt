@@ -17,6 +17,7 @@ class GestureWebSocket: GestureRepository{
     }
 
     override suspend fun getGestureParams(url: String) {
+        Log.d("Gesture",   url.toString())
         try {
             val client = OkHttpClient()
             val request = Request
@@ -41,6 +42,7 @@ class GestureWebSocket: GestureRepository{
                 }
 
                 override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+                    Log.d("Gesture",  t.message.toString())
                     Log.d("Gesture",  "onFailure")
                 }
 

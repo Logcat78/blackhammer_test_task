@@ -36,7 +36,7 @@ class Launch @Inject constructor(
     }
 
     fun enableSettingsAccessibility(context: Context){
-        Toast.makeText(context,  "Нажмите на 3 точки в углу экрана и включитите настройки, возможно на вашем устройстве это будет по другому", Toast.LENGTH_LONG).show()
+        Toast.makeText(context,  "Нажмите на 3 точки в углу экрана и включитите настройки, если подобная)", Toast.LENGTH_LONG).show()
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", "com.task.blackhammer_test_task", null)
         intent.data = uri
